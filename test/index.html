@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+ 
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+ 
+        <title>${title}</title>
+        <meta name="description" content="${description}" />
+
+        <script src="http://rawgithub.com/phi-jp/tmlib.js/d8196cc5e619979146a4122608b3b323b3cebd13/build/tmlib.js"></script>
+        <script src="http://box2dweb.googlecode.com/svn/trunk/Box2D.js"></script>
+        <script src="../src/core.js"></script>
+        <script>
+
+var SCREEN_WIDTH    = 640;              // スクリーン幅
+var SCREEN_HEIGHT   = 960;              // スクリーン高さ
+
+
+tm.main(function() {
+    var app = tm.display.CanvasApp("#world");
+    app.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    app.fitWindow();
+
+    app.replaceScene(MainScene());
+
+    app.run();
+});
+
+
+tm.define("MainScene", {
+    superClass: "tm.box2d.Scene",
+
+    init: function() {
+        this.superInit({
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT,
+        });
+
+
+    },
+});
+
+
+        </script>
+    </head>
+    <body>
+        <canvas id="world"></canvas>
+    </body>
+</html>
