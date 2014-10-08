@@ -150,6 +150,52 @@ var WORLD_HARF = Math.floor(WORLD_SIZE / 2);
             var b2body = this.world.CreateBody( boxBodyDef ); //ボディをworldに生成し…
             b2body.CreateFixture( boxFixDef ); //フィクスチャーを追加する
         },
+
+        attach2: function(element) {
+            element.b2body = this.world.CreateBody( element.bodyDef ); //ボディをworldに生成し…
+            element.b2body.CreateFixture( element.boxFixDef ); //フィクスチャーを追加する
+        },
+    });
+
+    tm.define("tm.box2d.CircleShape", {
+        superClass: "tm.display.CircleShape",
+
+        init: function() {
+            this.superInit();
+
+            var bodyDef = new b2BodyDef();
+            bodyDef.type = b2Body.b2_dynamicBody;
+
+            var circleFix = new b2FixtureDef();
+            var circlePly = new b2CircleShape(32 / WORLD_SCALE);
+            circleFix.shape = circlePly;
+            circleFix.density = 1;
+            circleFix.friction = 0.3;
+            circleFix.restitution = 0.5;
+
+            this.bodyDef = bodyDef;
+            this.boxFixDef = circleFix;
+
+            this.setPosition(450, 100);
+        },
+
+        setPosition: function(x, y) {
+            this.bodyDef.position.Set(x/WORLD_SCALE, y/WORLD_SCALE);
+        },
+
+        update: function() {
+            if (!this.b2body) return ;
+            //Box2d世界から位置を取得する
+            this.x = this.b2body.GetPosition().x * WORLD_SCALE;
+            this.y = this.b2body.GetPosition().y * WORLD_SCALE;
+            // this.x = this.yari.GetPosition().x * this.Scale;
+            // this.y = this.yari.GetPosition().y * this.Scale;
+
+            // //Box2d世界から角度を取得する（ラジアンから度に直す）
+            // this.rotation = this.yari.GetAngle() * 180 / Math.PI;
+
+        }
+
     });
 
     // tm.define("tm.box2d.CircleShape", {

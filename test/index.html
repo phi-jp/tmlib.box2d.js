@@ -38,7 +38,8 @@ tm.define("MainScene", {
             height: SCREEN_HEIGHT,
         });
 
-
+        var shape = tm.box2d.CircleShape().addChildTo(this);
+        this.attach2(shape);
     },
 });
 
