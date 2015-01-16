@@ -131,19 +131,10 @@ var WORLD_HARF = Math.floor(WORLD_SIZE / 2);
         },
 
         createBall: function(x, y) {
-            var bodyDef = new b2BodyDef();
-            bodyDef.type = b2Body.b2_dynamicBody;
-            // タッチした位置に生成
-            bodyDef.position.Set(x/WORLD_SCALE, y/WORLD_SCALE);
+            var shape = tm.box2d.CircleShape().addChildTo(this);
 
-            var circleFix = new b2FixtureDef();
-            var circlePly = new b2CircleShape(32 / WORLD_SCALE);
-            circleFix.shape = circlePly;
-            circleFix.density = 1;
-            circleFix.friction = 0.3;
-            circleFix.restitution = 0.5;
-
-            this.attach(bodyDef, circleFix);
+            shape.setPosition(x, y);
+            this.attach2(shape);
         },
 
         attach: function(boxBodyDef, boxFixDef) {
@@ -155,6 +146,10 @@ var WORLD_HARF = Math.floor(WORLD_SIZE / 2);
             element.b2body = this.world.CreateBody( element.bodyDef ); //ボディをworldに生成し…
             element.b2body.CreateFixture( element.boxFixDef ); //フィクスチャーを追加する
         },
+    });
+
+    tm.define("tm.box2d.Element", {
+        superClass: "tm.display.CanvasElement",
     });
 
     tm.define("tm.box2d.CircleShape", {
